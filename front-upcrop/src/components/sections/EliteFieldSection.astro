@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../../assets/images/logo.svg';
+import background from '../../assets/images/hhholographic.webp';
+---
+
+<section class="relative text-black py-16 flex flex-col items-center justify-center">
+  <Image 
+    src={background} 
+    alt="Background holográfico" 
+    class="absolute inset-0 w-full h-full object-cover"
+    width={1920}
+    height={1080}
+    loading="lazy"
+  />
+  <main class="relative z-10 max-w-4xl px-6 space-y-6">
+    <h1 class="text-center text-7xl">Donde el campo <br> se vuelve élite</h1>
+    <Image 
+      src={logo} 
+      alt="Logo de UpCrop" 
+      class="w-32 h-auto mx-auto"
+      width={128}
+      height={128}
+      loading="lazy"
+    />
+    <p class="text-justify text-lg lg:text-base">
+      Esta fase encapsula la <strong>esencia de UpCrop</strong>: transformar la producción agricola en una actividad de alto nivel, donde la tradición se encuentra con la innovación para alcanzar estandares superiores. No se trata solo de producir más, sino de producir mejor, con datos precisos, decisiones estrategicas y tecnología que impulsa cada hectárea hacia su máximo potencial. Esta frase comunica que el campo deja de ser solo trabajo duro y se convierte en una excelencia sofisticada, eficiente y reconocida. Habla de exclusividad, pero tambien de evolución: <strong>de pasar de lo común a lo excepcional.</strong> Es una invitación a los productores a sentirse parte de una nueva categoría, donde su labor tie el mismo estatus que las grandes industrias modernas. <strong>Representa orgullo, visión y el deseo de pertenecer a una élite productiva que marca el futuro del agro.</strong>
+    </p>
+  </main>
+</section>

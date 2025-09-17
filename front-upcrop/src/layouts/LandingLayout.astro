@@ -1,0 +1,273 @@
+---
+import '../styles/global.css';
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.svg';
+
+export interface Props {
+  title: string;
+  description?: string;
+  hideNavbar?: boolean;
+}
+
+const { title, description = "UpCrop - El campo elevado a su máxima expresión", hideNavbar = false } = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/upcrop.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
+    
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=menu" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=person" />
+    
+    <title>{title}</title>
+  </head>
+  
+  <body class="bg-black">
+    <!-- Navigation Header -->
+    {!hideNavbar && (
+    <header class="fixed top-0 left-0 w-full z-20 bg-black/90 lg:bg-black/40 md:bg-black/40 p-4 pointer-events-auto">
+      <nav class="mx-auto max-w-6xl flex justify-between items-center px-4 md:px-8">
+        <!-- Logo y texto -->
+        <a href="#inicio" class="flex items-center flex-shrink-0 hover:text-cyan-950 transition-colors" onclick="if (location.pathname.includes('/login')) { location.href = '/#inicio'; event.preventDefault(); }">
+          <Image 
+            src={logo} 
+            alt="logo cropup" 
+            class="h-12 w-auto mr-2"
+            width={48}
+            height={48}
+            loading="eager"
+          />
+          <span class="text-white text-3xl font-bold font-[Meticula]">up crop</span>
+        </a>
+
+        <!-- Navegación en el centro -->
+        <ul class="hidden lg:flex flex-1 justify-center items-center space-x-6 text-[--accent] lg:text-white">
+          <li><a href="#inicio" class="hover:text-cyan-400" onclick="if (location.pathname.includes('/login')) { location.href = '/#inicio'; event.preventDefault(); }">Inicio</a></li>
+          <li><a href="#desafios" class="hover:text-cyan-400" onclick="if (location.pathname.includes('/login')) { location.href = '/#desafios'; event.preventDefault(); }">Desafíos</a></li>
+          <li><a href="#beneficios" class="hover:text-cyan-400" onclick="if (location.pathname.includes('/login')) { location.href = '/#beneficios'; event.preventDefault(); }">Beneficios</a></li>
+          <li><a href="#como-funciona" class="hover:text-cyan-400" onclick="if (location.pathname.includes('/login')) { location.href = '/#como-funciona'; event.preventDefault(); }">Cómo funciona</a></li>
+          <li><a href="#contacto" class="hover:text-cyan-400" onclick="if (location.pathname.includes('/login')) { location.href = '/#contacto'; event.preventDefault(); }">Contacto</a></li>
+        </ul>
+
+        <!-- Botones a la derecha -->
+        <div class="flex items-center space-x-8">
+          <div class="hidden lg:flex space-x-2">
+            <a href="/login" class="bg-[--accent] text-white px-3 py-2 rounded hover:bg-cyan-600">Usuarios</a>
+            <a href="/register" class="bg-[--accent] text-white px-3 py-2 rounded hover:bg-cyan-600">Aula Virtual</a>
+          </div>
+          
+          <!-- Botón de login con ícono (mobile) -->
+          <a href="/login" class="lg:hidden flex items-center text-white mr-1">
+            <span class="material-symbols-outlined">person</span>
+          </a>
+
+          <!-- Menú hamburguesa (mobile) -->
+          <button class="lg:hidden text-white" id="menu-toggle">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Menú Mobile (oculto por defecto) -->
+      <div class="lg:hidden mt-4 hidden" id="mobile-menu">
+        <ul class="flex flex-col items-center space-y-4 p-4 text-white">
+          <li><a href="#inicio" class="hover:text-cyan-400 py-2">Inicio</a></li>
+          <li><a href="#desafios" class="hover:text-cyan-400 py-2">Desafíos</a></li>
+          <li><a href="#beneficios" class="hover:text-cyan-400 py-2">Beneficios</a></li>
+          <li><a href="#como-funciona" class="hover:text-cyan-400 py-2">Cómo funciona</a></li>
+          <li><a href="#contacto" class="mb-1 hover:text-cyan-400 py-2">Contacto</a></li>
+        </ul>
+      </div>
+    </header>
+    )}
+
+    <!-- Main Content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white relative overflow-hidden">
+      <!-- Background overlay with subtle pattern -->
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-900/30 to-transparent"></div>
+      
+      <div class="relative z-10 max-w-6xl mx-auto px-4 py-12 md:py-16">
+        <!-- Primera fila: Logo + Descripción y Contacto -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          
+          <!-- Logo y descripción -->
+          <div class="flex flex-col items-start">
+            <div class="flex items-center mb-6">
+              <Image 
+                src={logo} 
+                alt="CropUP logo" 
+                class="h-12 w-auto mr-3"
+                width={48}
+                height={48}
+                loading="lazy"
+              />
+              <span class="text-white text-2xl font-bold font-[Meticula]">up crop</span>
+            </div>
+            <p class="text-gray-300 text-base leading-relaxed mb-6 max-w-md">
+              Conectamos y capacitamos a productores agrícolas con tecnología innovadora para el futuro del campo.
+            </p>
+            
+            <!-- Redes sociales -->
+            <div class="flex space-x-4">
+              <a href="www.x.com/" aria-label="Twitter" class="group p-3 bg-white/5 rounded-full hover:bg-cyan-500/20 transition-all duration-300">
+                <svg class="w-5 h-5 text-gray-300 group-hover:text-cyan-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23 4.5c-.8.4-1.6.6-2.5.8.9-.6 1.6-1.6 1.9-2.7-.8.5-1.8.9-2.8 1.1C18.6 3.6 17.3 3 16 3c-2.7 0-4.8 2.2-4.8 4.8 0 .4 0 .9.1 1.3C7.7 9 4.1 7.1 1.9 4.1c-.4.7-.7 1.6-.7 2.5 0 1.7.9 3.2 2.4 4.1-.7 0-1.4-.2-2-.5v.1c0 2.3 1.6 4.2 3.8 4.6-.4.1-.8.2-1.3.2-.3 0-.6 0-.9-.1.6 1.9 2.4 3.3 4.6 3.3-1.7 1.3-3.9 2.1-6.2 2.1-.4 0-.9 0-1.3-.1 2.1 1.4 4.6 2.2 7.3 2.2 8.8 0 13.6-7.3 13.6-13.6v-.6c.9-.7 1.6-1.5 2.2-2.5-.8.4-1.6.6-2.5.8z"/>
+                </svg>
+              </a>
+              
+              <a href="www.instagram.com/" aria-label="Instagram" class="group p-3 bg-white/5 rounded-full hover:bg-pink-500/20 transition-all duration-300">
+                <svg class="w-5 h-5 text-gray-300 group-hover:text-pink-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+              
+              <a href="www.linkedin.com/" aria-label="LinkedIn" class="group p-3 bg-white/5 rounded-full hover:bg-blue-500/20 transition-all duration-300">
+                <svg class="w-5 h-5 text-gray-300 group-hover:text-blue-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Información de Contacto -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Contacto</h3>
+            <div class="space-y-3 text-gray-300">
+              <div class="flex items-start group">
+                <svg class="w-4 h-4 mt-1 mr-3 text-[--accent] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                </svg>
+                <address class="not-italic text-sm leading-relaxed">
+                  Av. prueba 123, Edificio correspondiente<br />
+                  Region, Chile
+                </address>
+              </div>
+              
+              <div class="flex items-center group">
+                <svg class="w-4 h-4 mr-3 text-[--accent] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                </svg>
+                <a href="tel:+56912345678" class="text-sm hover:text-cyan-400 transition-colors">
+                  +56 9 6280 6306
+                </a>
+              </div>
+              
+              <div class="flex items-center group">
+                <svg class="w-4 h-4 mr-3 text-[--accent] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                </svg>
+                <a href="mailto:Sales@Upcropin.com" class="text-sm hover:text-cyan-400 transition-colors">
+                  Sales@Upcropin.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navegación y Recursos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div class="flex justify-between md:block">
+            <div class="md:w-full">
+              <h3 class="text-lg font-semibold mb-4">Explorar</h3>
+              <ul class="space-y-3 text-gray-300">
+                <li><a href="#inicio" class="hover:text-cyan-400 transition-colors duration-200 flex items-center group">
+                  <span class="w-1 h-1 bg-cyan-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                  Inicio
+                </a></li>
+                <li><a href="#desafios" class="hover:text-cyan-400 transition-colors duration-200 flex items-center group">
+                  <span class="w-1 h-1 bg-cyan-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                  Desafíos
+                </a></li>
+                <li><a href="#beneficios" class="hover:text-cyan-400 transition-colors duration-200 flex items-center group">
+                  <span class="w-1 h-1 bg-cyan-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                  Beneficios
+                </a></li>
+              </ul>
+            </div>
+
+            <div class="md:hidden">
+              <h3 class="text-lg font-semibold mb-4">Recursos</h3>
+              <ul class="space-y-3 text-gray-300">
+                <li><a href="#como-funciona" class="hover:text-cyan-400 transition-colors duration-200 flex items-center group">
+                  <span class="w-1 h-1 bg-cyan-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                  Cómo funciona
+                </a></li>
+                <li><a href="#contacto" class="hover:text-cyan-400 transition-colors duration-200 flex items-center group">
+                  <span class="w-1 h-1 bg-cyan-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                  Contacto
+                </a></li>
+                <li><a href="/register" class="hover:text-cyan-400 transition-colors duration-200 flex items-center group">
+                  <span class="w-1 h-1 bg-cyan-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                  Aula Virtual
+                </a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="hidden md:block">
+            <h3 class="text-lg font-semibold mb-4">Recursos</h3>
+            <ul class="space-y-3 text-gray-300">
+              <li><a href="#como-funciona" class="hover:text-cyan-400 transition-colors duration-200 flex items-center group">
+                <span class="w-1 h-1 bg-cyan-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Cómo funciona
+              </a></li>
+              <li><a href="#contacto" class="hover:text-cyan-400 transition-colors duration-200 flex items-center group">
+                <span class="w-1 h-1 bg-cyan-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Contacto
+              </a></li>
+              <li><a href="/register" class="hover:text-cyan-400 transition-colors duration-200 flex items-center group">
+                <span class="w-1 h-1 bg-cyan-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Aula Virtual
+              </a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Barra inferior -->
+        <div class="border-t border-white/10 pt-8">
+          <div class="flex flex-col md:flex-row items-center justify-between text-sm text-gray-400">
+            <p class="mb-4 md:mb-0 flex items-center">
+              <span>&copy; {new Date().getFullYear()} UpCrop.</span>
+              <span class="mx-2">•</span>
+              <span>Todos los derechos reservados</span>
+            </p>
+            <div class="flex space-x-6">
+              <a href="/terms" class="hover:text-cyan-400 transition-colors duration-200">Términos</a>
+              <a href="/privacy" class="hover:text-cyan-400 transition-colors duration-200">Privacidad</a>
+              <a href="/cookies" class="hover:text-cyan-400 transition-colors duration-200">Cookies</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Script para el menú hamburguesa -->
+    <script>
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+    </script>
+  </body>
+</html>

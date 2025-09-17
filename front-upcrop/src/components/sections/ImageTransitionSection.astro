@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import background_3 from '../../assets/images/background-3.png';
+---
+
+<section class="flex items-center justify-center">
+  <div class="relative w-full h-full">
+    <Image 
+      src={background_3} 
+      alt="imagen 4" 
+      class="w-full h-full object-contain object-center"
+      width={1920}
+      height={1080}
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-white via-transparent to-black"></div>
+  </div>
+  <main>
+    <!-- Puedes agregar contenido aquí si lo necesitas -->
+  </main>
+</section>

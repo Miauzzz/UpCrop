@@ -1,0 +1,40 @@
+---
+import LandingLayout from '../layouts/LandingLayout.astro';
+
+// Importar todas las secciones
+import HeroSection from '../components/sections/HeroSection.astro';
+import ManifestoSection from '../components/sections/ManifestoSection.astro';
+import BrandValuesSection from '../components/sections/BrandValuesSection.astro';
+import ImageTransitionSection from '../components/sections/ImageTransitionSection.astro';
+import DataPowerSection from '../components/sections/DataPowerSection.astro';
+import EliteFieldSection from '../components/sections/EliteFieldSection.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+---
+
+<LandingLayout 
+  title="UpCrop - El campo elevado a su máxima expresión"
+  description="Conectamos y capacitamos a productores agrícolas con tecnología innovadora para el futuro del campo."
+>
+
+  <!-- Sección 1: Hero -->
+  <HeroSection />
+
+  <!-- Sección 2: Manifiesto -->
+  <ManifestoSection />
+
+  <!-- Sección 3: Brand Values -->
+  <BrandValuesSection />
+
+  <!-- Sección 4: Transición de imagen -->
+  <ImageTransitionSection />
+
+  <!-- Sección 5: Data Power -->
+  <DataPowerSection />
+  
+  <!-- Sección 6: Elite Field -->
+  <EliteFieldSection />
+  
+  <!-- Sección 7: Contacto -->
+  <ContactSection />
+
+</LandingLayout>

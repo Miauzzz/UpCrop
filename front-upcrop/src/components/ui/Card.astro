@@ -1,0 +1,26 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  icon?: string;
+  variant?: 'default' | 'dark' | 'transparent';
+}
+
+const { title, description, icon, variant = 'default' } = Astro.props;
+
+const variants = {
+  default: 'bg-white text-black',
+  dark: 'bg-gray-900 text-white',
+  transparent: 'bg-transparent text-current'
+};
+---
+
+<div class={`p-6 rounded-lg transition-all duration-300 hover:shadow-lg ${variants[variant]}`}>
+  {icon && (
+    <div class="mb-4">
+      <span class="text-2xl">{icon}</span>
+    </div>
+  )}
+  <h3 class="text-lg font-semibold mb-2">{title}</h3>
+  <p class="text-sm leading-relaxed opacity-90">{description}</p>
+</div>

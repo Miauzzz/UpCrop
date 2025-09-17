@@ -1,0 +1,48 @@
+---
+export interface Props {
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  disabled?: boolean;
+  id?: string;
+  [key: string]: any; // Para permitir cualquier atributo HTML
+}
+
+const { 
+  variant = 'primary', 
+  size = 'md', 
+  href, 
+  type = 'button',
+  class: customClass = '',
+  disabled = false,
+  ...props 
+} = Astro.props;
+
+const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2';
+
+const variants = {
+  primary: 'bg-[--accent] text-white hover:bg-cyan-600 focus:ring-cyan-400',
+  secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-400',
+  outline: 'border-2 border-[--accent] text-[--accent] hover:bg-[--accent] hover:text-white focus:ring-cyan-400'
+};
+
+const sizes = {
+  sm: 'px-3 py-2 text-sm',
+  md: 'px-4 py-2 text-base',
+  lg: 'px-8 py-4 text-lg'
+};
+
+const classes = `${baseStyles} ${variants[variant]} ${sizes[size]} ${customClass}`;
+---
+
+{href ? (
+  <a href={href} class={classes} {...props}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes} disabled={disabled} {...props}>
+    <slot />
+  </button>
+)}

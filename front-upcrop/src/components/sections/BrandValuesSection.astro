@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+import logobanner from '../../assets/images/logobanner.png';
+import background_2 from '../../assets/images/background-2.png';
+---
+<style>
+  .dots-pattern {
+	  background-image: radial-gradient(#4166F5 1px, transparent 1px), radial-gradient(#4166F5 1px, transparent 1px);
+	  background-size: 90px 90px;
+	  background-position: 0 0, 45px 45px;
+	  background-color: #ffffff;
+}
+</style>
+<section>
+  <div class="flex items-center justify-center text-black bg-white py-14">
+    <Image 
+      src={logobanner} 
+      alt="Logo de UpCrop"
+      width={400}
+      height={150}
+      loading="lazy"
+    />
+  </div>
+
+  <main class="dots-pattern flex flex-col lg:flex-row items-center justify-center w-full py-16">
+    <div class="w-full lg:w-1/2 flex items-center justify-center relative">
+      <Image 
+        src={background_2} 
+        alt="imagen 3" 
+        class="w-full h-auto object-cover max-h-[400px] lg:max-h-none select-none" 
+        width={960}
+        height={640}
+        loading="lazy"
+        style="-webkit-user-drag: none; -khtml-user-drag: none;"
+      />
+      <!-- Overlay for mobile text readability -->
+      <div class="absolute bottom-0 left-0 right-0 h-1/3 bg-black/40 lg:hidden"></div>
+    </div>
+    
+    <article class="w-full lg:w-1/2 flex flex-col justify-center px-4 sm:px-8 lg:px-12 mt-6 lg:mt-0 relative">
+      <div class="flex flex-col items-center">
+        <h1 class="text-center text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-black">BRAND VALUES</h1>
+      </div>
+      <div class="bg-black/60 rounded-lg p-4 space-y-8 lg:bg-transparent lg:p-0">
+        <div>
+          <h2 class="text-lg font-semibold text-white lg:text-black">PRECISIÓN</h2>
+          <p class="text-sm lg:text-base text-white lg:text-black text-justify">Cada dato que proporcionamos transforma la incertidumbre en estrategia, permitiendo que los productores no solo reaccionen ante los desafios, sino que los anticipe.</p>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold text-white lg:text-black">INNOVACIÓN</h2>
+          <p class="text-sm lg:text-base text-white lg:text-black text-justify">Diseñamos soluciones que integran lo mejor de la tecnología avanzada sin perder la esencia del campo, asegurando que cada avance tenga un impacto real y sostenible en la vida de quienes producen.</p>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold text-white lg:text-black">EFICIENCIA</h2>
+          <p class="text-sm lg:text-base text-white lg:text-black text-justify">Transformamos los logros agrícolas en símbolos de progreso, a través de herramientas que permiten que cada decisión tomada en el campo se traduzca en resultados visibles y medibles, que eleven el valor de quienes producen y les permitan mostrar su trabajo con confianza, profesionalismo y prestigio.</p>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold text-white lg:text-black">CONFIANZA</h2>
+          <p class="text-sm lg:text-base text-white lg:text-black text-justify">Proveemos datos accionables y análisis en tiempo real que permiten a los productores tomar decisiones con impacto medible. Desde optimizar recursos hasta anticipar rendimientos, cada recomendación de UpCrop está diseñada para generar resultados sostenibles y una ventaja competitiva duradera.</p>
+        </div>
+        <div>
+          <h2 class="text-lg font-semibold text-white lg:text-black">TECNOLOGÍA</h2>
+          <p class="text-sm lg:text-base text-white lg:text-black text-justify">Combinamos la inteligencia digital con el acompañamiento experto para que la tecnología no solo informe, sino que acompañe. Ofrecemos soporte personalizado, asesoría y seguimiento continuo que ayudan al productor a interpretar los datos y aplicarlos estratégicamente en su operación diaria.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+</section>

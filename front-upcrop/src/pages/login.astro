@@ -1,0 +1,321 @@
+---
+import LandingLayout from '../layouts/LandingLayout.astro';
+import Button from '../components/ui/Button.astro';
+import FormField from '../components/ui/FormField.astro';
+import logo from '../assets/images/logo.svg';
+---
+
+<LandingLayout title="Login - UpCrop" description="Accede a tu cuenta de UpCrop" hideNavbar>
+  <!-- Main container with background -->
+  <div class="min-h-screen bg-black relative overflow-hidden">
+    <!-- Background elements -->
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black to-cyan-900/20"></div>
+    <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(65,102,245,0.15),transparent_50%)]"></div>
+    
+    <!-- Floating geometric shapes -->
+    <div class="absolute top-20 left-10 w-32 h-32 bg-cyan-400/5 rounded-full blur-xl animate-pulse"></div>
+    <div class="absolute bottom-32 right-16 w-40 h-40 bg-blue-500/5 rounded-full blur-xl animate-pulse delay-300"></div>
+    <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-cyan-300/10 rounded-full blur-lg animate-pulse delay-700"></div>
+    
+    <!-- Main content -->
+    <div class="relative z-10 flex items-center justify-center min-h-screen px-4 py-20">
+      <div class="w-full max-w-md">
+        
+        <!-- Logo and heading -->
+        <div class="text-center mb-8">
+          <div class="flex items-center justify-center mb-6">
+            <img src={logo.src} alt="UpCrop logo" class="h-16 w-auto mr-3" />
+          </div>
+          <h1 class="text-3xl font-bold text-white mb-2">Acceso al Sistema</h1>
+          <p class="text-gray-400">Ingresa con las credenciales proporcionadas por UpCrop</p>
+        </div>
+
+        <!-- Login form -->
+        <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+          <form class="space-y-6" id="loginForm">
+            
+            <!-- Usuario field -->
+            <FormField 
+              label="Usuario"
+              name="username"
+              type="text"
+              placeholder="Ingresa tu usuario"
+              required={true}
+            />
+
+            <!-- Password field -->
+            <FormField 
+              label="Contraseña"
+              name="password"
+              type="password"
+              placeholder="••••••••"
+              required={true}
+            />
+
+            <!-- Remember me and forgot password -->
+            <div class="flex items-center justify-between text-sm">
+              <label class="flex items-center text-gray-300">
+                <input type="checkbox" name="remember" class="mr-2 rounded border-gray-600 bg-white/10 text-[--accent] focus:ring-[--accent]" />
+                Mantener sesión iniciada
+              </label>
+            </div>
+
+            <!-- Submit button -->
+            <Button 
+              type="submit" 
+              variant="primary" 
+              size="lg" 
+              class="w-full bg-gradient-to-r from-[--accent] to-cyan-500 hover:from-cyan-600 hover:to-blue-600 shadow-lg shadow-blue-500/25"
+            >
+              Acceder al Sistema
+            </Button>
+          </form>
+
+          <!-- Additional help -->
+          <div class="text-center mt-6 pt-6 border-t border-white/10">
+                <p class="text-gray-400 text-sm">
+                ¿Problemas al acceder? 
+              <a href="#" class="text-[--accent] hover:text-cyan-400 transition-colors font-medium">
+                Contacta a soporte
+              </a>
+            </p>
+          </div>
+        </div>
+        <a href="/" class="block text-center text-gray-400 text-sm mt-6 hover:text-white transition-colors">
+          &larr; Volver al sitio principal
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('loginForm') as HTMLFormElement;
+      const inputs = form?.querySelectorAll('input[type="text"], input[type="password"]') as NodeListOf<HTMLInputElement>;
+      
+      // Animacion de focus en inputs
+      inputs?.forEach(input => {
+        input.addEventListener('focus', function() {
+          const parent = this.parentNode as HTMLElement;
+          parent?.classList.add('focused');
+        });
+        
+        input.addEventListener('blur', function() {
+          if (!this.value) {
+            const parent = this.parentNode as HTMLElement;
+            parent?.classList.remove('focused');
+          }
+        });
+        
+        // Verificar si ya tiene valor (para autocompletar)
+        if (input.value) {
+          const parent = input.parentNode as HTMLElement;
+          parent?.classList.add('focused');
+        }
+      });
+
+      // Manejo del submit del formulario
+      form?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const usernameInput = form.querySelector('input[name="username"]') as HTMLInputElement;
+        const passwordInput = form.querySelector('input[name="password"]') as HTMLInputElement;
+        const rememberInput = form.querySelector('input[name="remember"]') as HTMLInputElement;
+        
+        const username = usernameInput?.value || '';
+        const password = passwordInput?.value || '';
+        const remember = rememberInput?.checked || false;
+        
+        if (!username || !password) {
+          showMessage('Por favor, complete todos los campos', 'error');
+          return;
+        }
+        
+        const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+        if (submitButton) {
+          const originalText = submitButton.textContent || 'Acceder al Sistema';
+          submitButton.textContent = 'Verificando credenciales...';
+          submitButton.disabled = true;
+          
+          // Call Django API
+          console.log('Intentando conectar con:', 'http://localhost:8000/api/auth/');
+          
+          fetch('http://localhost:8000/api/auth/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+              usuario: username,
+              contrasena: password
+            })
+          })
+          .then(response => {
+            console.log('Response status:', response.status);
+            console.log('Response headers:', [...response.headers.entries()]);
+            
+            return response.json().then(data => ({ 
+              ok: response.ok, 
+              status: response.status,
+              data 
+            }));
+          })
+          .then(({ ok, status, data }) => {
+            console.log('API Response:', data);
+            
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+            
+            if (ok && data.success) {
+              showMessage(data.msg || 'Inicio de sesión exitoso', 'success');
+              
+              if (remember && data.token) {
+                localStorage.setItem('upcrop_token', data.token);
+                localStorage.setItem('upcrop_user', JSON.stringify(data.user));
+                if (data.refresh_token) {
+                  localStorage.setItem('upcrop_refresh_token', data.refresh_token);
+                }
+              } else if (data.token) {
+                sessionStorage.setItem('upcrop_token', data.token);
+                sessionStorage.setItem('upcrop_user', JSON.stringify(data.user));
+                if (data.refresh_token) {
+                  sessionStorage.setItem('upcrop_refresh_token', data.refresh_token);
+                }
+              }
+              
+              setTimeout(() => {
+                window.location.href = '/dashboard/';
+              }, 1500);
+              
+            } else {
+              showMessage(data.msg || 'Error de autenticación', 'error');
+            }
+          })
+          .catch(err => {
+            console.error('Error completo:', err);
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+            
+            if (err.name === 'TypeError' && err.message.includes('fetch')) {
+              showMessage('❌ No se puede conectar al servidor. Inténtalo más tarde.', 'error');
+            } else {
+              showMessage(`❌ Error de conexión: ${err.message}`, 'error');
+            }
+          });
+        }
+      });
+      
+      // Function para mostrar notificaciones
+      function showMessage(message: string, type: 'success' | 'error') {
+        const existingMessage = document.querySelector('.message-alert');
+        if (existingMessage) {
+          existingMessage.remove();
+        }
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message-alert fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 ${
+          type === 'success' 
+            ? 'bg-green-500/90 text-white border border-green-400' 
+            : 'bg-red-500/90 text-white border border-red-400'
+        }`;
+        messageDiv.textContent = message;
+        
+        document.body.appendChild(messageDiv);
+        setTimeout(() => {
+          messageDiv.style.transform = 'translateX(0)';
+          messageDiv.style.opacity = '1';
+        }, 100);
+
+        setTimeout(() => {
+          messageDiv.style.transform = 'translateX(100%)';
+          messageDiv.style.opacity = '0';
+          setTimeout(() => {
+            if (messageDiv.parentNode) {
+              messageDiv.parentNode.removeChild(messageDiv);
+            }
+          }, 300);
+        }, 4000);
+      }
+    });
+  </script>
+
+
+  <style>
+    .backdrop-blur-xl {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    input[type="checkbox"] {
+      appearance: none;
+      width: 1rem;
+      height: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 0.25rem;
+      background: rgba(255, 255, 255, 0.1);
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    input[type="checkbox"]:checked {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    
+    input[type="checkbox"]:checked::before {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    input:focus {
+      box-shadow: 0 0 0 3px rgba(65, 102, 245, 0.3);
+    }
+    
+    /* Notificaciones */
+    .message-alert {
+      transform: translateX(100%);
+      opacity: 0;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-weight: 500;
+      min-width: 300px;
+      max-width: 400px;
+    }
+    
+    /* animación de botón deshabilitado */
+    button:disabled {
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    
+    button:disabled:hover {
+      transform: none !important;
+    }
+
+    /* Notificacion de error en el formulario */
+    .form-error input {
+      border-color: #ef4444 !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3) !important;
+    }
+    
+    .form-error label {
+      color: #ef4444 !important;
+    }
+  </style>
+</LandingLayout>

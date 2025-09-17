@@ -1,0 +1,145 @@
+---
+// Formulario de Contacto mejorado
+---
+
+<section id="contacto" class="relative bg-gradient-to-b from-gray-900 via-black to-gray-900 text-white overflow-hidden">
+  <!-- Background pattern overlay -->
+  <div class="absolute inset-0 bg-black/20"></div>
+  
+  <main class="relative z-10 flex flex-col items-center justify-center w-full py-24 px-6">
+    <!-- Header del formulario -->
+    <div class="text-center mb-12 max-w-2xl">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        Contacta con 
+        <span class="text-[--accent]">
+          Nosotros
+        </span>
+      </h1>
+      <p class="text-gray-300 text-lg leading-relaxed">
+        Únete a la élite productiva y transforma tu campo con tecnología de vanguardia
+      </p>
+    </div>
+
+    <!-- Formulario mejorado -->
+    <div class="w-full max-w-4xl bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 md:p-12 shadow-2xl">
+      <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Nombre completo - ocupa todo el ancho -->
+        <div class="md:col-span-2">
+          <label for="nombre" class="block text-sm font-semibold text-[--accent] mb-2 uppercase tracking-wide">
+            Nombre Completo
+          </label>
+          <input 
+            id="nombre" 
+            name="nombre" 
+            type="text" 
+            placeholder="Ingresa tu nombre completo" 
+            class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[--accent] focus:border-transparent transition-all duration-300 hover:bg-white/15"
+          />
+        </div>
+
+        <!-- Fila de dos campos -->
+        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="empresa" class="block text-sm font-semibold text-[--accent] mb-2 uppercase tracking-wide">
+              Empresa
+            </label>
+            <input 
+              id="empresa" 
+              name="empresa" 
+              type="text" 
+              placeholder="Nombre de tu empresa" 
+              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[--accent] focus:border-transparent transition-all duration-300 hover:bg-white/15"
+            />
+          </div>
+          <div>
+            <label for="cargo" class="block text-sm font-semibold text-[--accent] mb-2 uppercase tracking-wide">
+              Cargo
+            </label>
+            <input 
+              id="cargo" 
+              name="cargo" 
+              type="text" 
+              placeholder="Tu posición" 
+              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[--accent] focus:border-transparent transition-all duration-300 hover:bg-white/15"
+            />
+          </div>
+        </div>
+
+        <!-- Segunda fila de dos campos -->
+        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="email" class="block text-sm font-semibold text-[--accent] mb-2 uppercase tracking-wide">
+              Email
+            </label>
+            <input 
+              id="email" 
+              name="email" 
+              type="email" 
+              placeholder="tu@email.com" 
+              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[--accent] focus:border-transparent transition-all duration-300 hover:bg-white/15"
+            />
+          </div>
+          <div>
+            <label for="telefono" class="block text-sm font-semibold text-[--accent] mb-2 uppercase tracking-wide">
+              Teléfono
+            </label>
+            <input 
+              id="telefono" 
+              name="telefono" 
+              type="tel" 
+              placeholder="+56 9 1234 5678" 
+              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[--accent] focus:border-transparent transition-all duration-300 hover:bg-white/15"
+            />
+          </div>
+        </div>
+
+        <!-- Campo adicional - ocupa todo el ancho -->
+        <div class="md:col-span-2">
+          <label for="hectareas" class="block text-sm font-semibold text-[--accent] mb-2 uppercase tracking-wide">
+            Hectáreas a gestionar
+          </label>
+          <input 
+            id="hectareas" 
+            name="hectareas" 
+            type="number" 
+            placeholder="Cantidad de hectáreas" 
+            class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[--accent] focus:border-transparent transition-all duration-300 hover:bg-white/15"
+          />
+        </div>
+
+        <!-- Mensaje - ocupa todo el ancho -->
+        <div class="md:col-span-2">
+          <label for="mensaje" class="block text-sm font-semibold text-[--accent] mb-2 uppercase tracking-wide">
+            Mensaje
+          </label>
+          <textarea 
+            id="mensaje" 
+            name="mensaje" 
+            rows="4" 
+            placeholder="Cuéntanos sobre tu proyecto y cómo podemos ayudarte a elevar tu producción al siguiente nivel..."
+            class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[--accent] focus:border-transparent transition-all duration-300 hover:bg-white/15 resize-vertical"
+          ></textarea>
+        </div>
+
+        <!-- Botón de envío -->
+        <div class="md:col-span-2 flex justify-center mt-6">
+          <button 
+            type="submit" 
+            class="group relative px-8 py-4 bg-[--accent] text-white font-bold text-lg rounded-lg hover:bg-cyan-600 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-[--accent]/25 min-w-[200px]"
+          >
+            <span class="relative z-10">Enviar Mensaje</span>
+            <div class="absolute inset-0rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Footer del contacto -->
+    <div class="text-center mt-12 max-w-2xl">
+      <p class="text-gray-400 text-sm">
+        Al enviar este formulario, aceptas que nos comuniquemos contigo para ofrecerte soluciones personalizadas para tu operación agrícola.
+      </p>
+    </div>
+  </main>
+</section>

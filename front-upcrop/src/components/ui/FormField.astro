@@ -1,0 +1,52 @@
+---
+export interface Props {
+  label: string;
+  name: string;
+  type?: 'text' | 'email' | 'tel' | 'number' | 'textarea' | 'password';
+  placeholder?: string;
+  required?: boolean;
+  rows?: number;
+  class?: string;
+}
+
+const { 
+  label, 
+  name, 
+  type = 'text', 
+  placeholder = '', 
+  required = false, 
+  rows = 4,
+  class: customClass = '',
+  ...props 
+} = Astro.props;
+
+const baseStyles = 'w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[--accent] focus:border-transparent transition-all duration-300 hover:bg-white/15';
+---
+
+<div class={`${customClass}`}>
+  <label for={name} class="block text-sm font-semibold text-[--accent] mb-2 uppercase tracking-wide">
+    {label}
+  </label>
+  
+  {type === 'textarea' ? (
+    <textarea 
+      id={name}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      rows={rows}
+      class={`${baseStyles} resize-vertical`}
+      {...props}
+    ></textarea>
+  ) : (
+    <input 
+      id={name}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      required={required}
+      class={baseStyles}
+      {...props}
+    />
+  )}
+</div>

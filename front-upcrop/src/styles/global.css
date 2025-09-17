@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Colores */
+    --primary-black: #000000;
+    --primary-white: #ffffff;
+    --secondary: #d6d7d8;
+    --accent: #4166f5;
+  }
+}
