@@ -3,13 +3,6 @@ import { Image } from 'astro:assets';
 import background_2 from '../../assets/images/background-2.png';
 ---
 
-<style>
-  #canvas3d {
-    display:block;
-    position: absolute;
-    top: 0;
-  }
-</style>
 
 <section id="inicio" class="relative w-full h-screen">
   <Image 
@@ -31,14 +24,4 @@ import background_2 from '../../assets/images/background-2.png';
 
 
   </div>
-  <canvas id="canvas3d"></canvas>
 </section>
-
-<script type="module">
-  import { Application } from '@splinetool/runtime';
-
-  const canvas = document.getElementById('canvas3d');
-  const app = new Application(canvas);
-  app.load('https://prod.spline.design/MhaI1BEa3wC45OGa/scene.splinecode');
-
-</script>
